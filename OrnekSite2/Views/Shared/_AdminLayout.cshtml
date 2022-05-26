@@ -470,7 +470,11 @@
     <script src="/Admin/dist/js/demo.js" type="text/javascript"></script>
     <!-- page script -->
     <script type="text/javascript">$(function () {
-        $("#example1").dataTable();
+    $("#example1").dataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+        }
+    });
         $('#example2').dataTable({
           "bPaginate": true,
           "bLengthChange": false,
