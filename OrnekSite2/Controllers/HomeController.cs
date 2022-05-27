@@ -10,6 +10,14 @@ namespace OrnekSite2.Controllers
     public class HomeController : Controller
     {
         DataContext db = new DataContext();
+        public PartialViewResult _FeaturedProductList()
+        {
+            return PartialView(db.Products.Where(i => i.IsApproved && i.IsFeatured).Take(5).ToList()); 
+        }
+        public PartialViewResult Slider()
+        {
+            return PartialView(db.Products.Where(i => i.IsApproved && i.Slider).Take(5).ToList());
+        }
         public ActionResult Index()
         {
             return View(db.Products.Where(i=>i.IsHome&&i.IsApproved).ToList());
@@ -35,6 +43,10 @@ namespace OrnekSite2.Controllers
         public ActionResult Product()
         {
             return View(db.Products.ToList() );
+        }
+        public ActionResult ProductList(int id)
+        {
+            return View(db.Products.Where(i=>i.CategoryId==id).ToList());
         }
     }
 }

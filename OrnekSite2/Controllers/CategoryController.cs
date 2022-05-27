@@ -7,12 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OrnekSite2.Entity;
+using OrnekSite2.Models;
 
 namespace OrnekSite2.Controllers
 {
     public class CategoryController : Controller
     {
         private DataContext db = new DataContext();
+        public PartialViewResult _CategoryList()
+        {
+            var categories = db.Categories.Select(x => new CategoryModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Count=x.Products.Count()
+            }).ToList();
+
+            return PartialView(categories);
+        }
 
         // GET: Category
         public ActionResult Index()
