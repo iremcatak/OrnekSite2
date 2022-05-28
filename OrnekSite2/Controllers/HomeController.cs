@@ -14,6 +14,15 @@ namespace OrnekSite2.Controllers
         {
             return PartialView(db.Products.Where(i => i.IsApproved && i.IsFeatured).Take(5).ToList()); 
         }
+        public ActionResult Search(string q)
+        {
+            var p = db.Products.Where(i => i.IsApproved == true);
+            if (!string.IsNullOrEmpty(q))
+            {
+                p = p.Where(i => i.Name.Contains(q) || i.Description.Contains(q));
+            }
+            return View(p.ToList());
+        }
         public PartialViewResult Slider()
         {
             return PartialView(db.Products.Where(i => i.IsApproved && i.Slider).Take(5).ToList());
